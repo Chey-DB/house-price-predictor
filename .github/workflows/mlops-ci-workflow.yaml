@@ -1,15 +1,10 @@
 name: MLOps CI Workflow
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch: {}
 
 jobs:
-  e2e2_mlops_workflow:
+  e2e_mlops_workflow:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -73,6 +68,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/fastapi:{{ github.sha }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/fastapi:${{ github.sha }}
           context: .
           file: Dockerfile
